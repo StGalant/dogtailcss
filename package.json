@@ -1,0 +1,19 @@
+{
+  "name": "dogtailcss",
+  "version": "1.0.0",
+  "description": "CSS framework with dynamically generated utility classess",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/st_galant/dogtailcss.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://bitbucket.org/st_galant/dogtailcss/issues"
+  },
+  "homepage": "https://bitbucket.org/st_galant/dogtailcss#readme"
+}
