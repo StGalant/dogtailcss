@@ -15,5 +15,18 @@
   "bugs": {
     "url": "https://bitbucket.org/st_galant/dogtailcss/issues"
   },
-  "homepage": "https://bitbucket.org/st_galant/dogtailcss#readme"
+  "homepage": "https://bitbucket.org/st_galant/dogtailcss#readme",
+  "dependencies": {
+    "fast-glob": "^3.2.7",
+    "micromatch": "^4.0.4",
+    "modern-normalize": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/micromatch": "^4.0.2",
+    "@types/node": "^16.4.10",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
+  }
 }

@@ -1,36 +1,22 @@
-import * as winston from 'winston'
-import * as mm from 'micromatch'
-import listFiles from './file-utils/listFiles'
-import * as path from 'path'
+import { Theme } from './theme'
 
-const filesPatterns = [
-  'src/components/**/*.vue',
-  'src/pages/**/*.vue',
-  'src/layouts/**/*.vue',
-].map((f) => path.resolve(f))
+export interface DogtailCss {
+  addClass(className: string)
+  removeClass(className: string)
+  render(): string
+}
 
-let files = []
+export interface DogtailCssOptions {
+  plugins?: any[]
+  theme?: Theme
+}
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
-  ],
-})
-
-export default function TailCssPlugin() {
+export function dogtailcss(config: DogtailCssOptions): DogtailCss {
   return {
-    name: 'tailcss-plugin',
-    buildStart() {
-      files = listFiles(filesPatterns)
-    },
-    handleHotUpdate(ctx: { file: string; modules: Array<any> }) {
-      if (mm.isMatch(ctx.file, filesPatterns)) {
-        logger.log('info', 'Update file: ' + ctx.file)
-      }
-      return ctx.modules
+    addClass(className: string) {},
+    removeClass(className: string) {},
+    render() {
+      return ''
     },
   }
 }
