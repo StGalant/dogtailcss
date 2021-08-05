@@ -1,0 +1,84 @@
+import { Theme } from './theme'
+import { objectToCss } from './objectToCss'
+import { ClassUtils } from './class-utils'
+
+export interface FormatOptions {
+  tabSize?: number
+  screenAutoLevel?: boolean
+}
+
+const defaultFormatOptions: FormatOptions = {
+  tabSize: 4,
+  screenAutoLevel: true,
+}
+
+export function createDogtailCssCompiler(
+  classUtils: ClassUtils,
+  theme: Theme,
+  options: FormatOptions
+) {
+  let { tabSize, screenAutoLevel } = { ...defaultFormatOptions, ...options }
+
+  return function (className) {
+    //compilePureClassName
+    function compilePureClassName(className: string) {
+      let dashIndex = className.length
+      while (dashIndex > 0) {
+        let tmpClassName = className.substring(0, dashIndex)
+        if (classUtils.has(tmpClassName)) {
+          for (let plugin of classUtils.get(tmpClassName)) {
+            let rule = plugin[tmpClassName].call(
+              undefined,
+              className.substring(dashIndex + 1),
+              theme
+            )
+            if (rule) {
+              return rule
+            }
+          }
+        }
+        dashIndex = className.lastIndexOf('-', dashIndex - 1)
+      }
+    } //compilePureClassName
+
+    let screen = 'normal'
+    let scrMinWidth = 0
+    let pseudo: string[] = []
+    let parts = className.split(':')
+    let pureClassName: string
+
+    parts.forEach((part) => {
+      let scr = theme.screens.find(({ name }) => name === part)
+      if (scr) {
+        if (screen == 'normal' || scr.minWidth < scrMinWidth) screen = scr.name
+        scrMinWidth = scr.minWidth
+        return
+      }
+      if (theme.pseudoClasses[part]) {
+        pseudo.push(theme.pseudoClasses[part])
+        return
+      }
+      pureClassName = part
+    })
+
+    let rule = compilePureClassName(pureClassName)
+    if (!rule) {
+      return { screen: 'normal', rule: '' }
+    }
+
+    let escClassName = '.' + className.replace(/[#:.,*+?^${}()|[\]\\]/g, '\\$&')
+    if (rule && escClassName) {
+      return {
+        screen,
+        rule: objectToCss(
+          `${escClassName}${pseudo.join('')}`,
+          rule,
+          screenAutoLevel && screen === 'normal' ? 0 : 1,
+          {
+            tabSize,
+          }
+        ),
+      }
+    }
+  }
+}

@@ -1,4 +1,8 @@
-export default {
+export interface ThemeColors {
+  [key: string]: string | { [key: string]: string }
+}
+
+export const colors: ThemeColors = {
   black: '#000',
   white: '#fff',
   rose: {

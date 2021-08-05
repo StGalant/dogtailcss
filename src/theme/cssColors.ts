@@ -1,4 +1,8 @@
-export default {
+export interface ThemeCssColors {
+  [key: string]: string
+}
+
+export const cssColors: ThemeCssColors = {
   aliceblue: '#f0f8ff',
   antiquewhite: '#faebd7',
   aqua: '#00ffff',

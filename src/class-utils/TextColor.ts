@@ -1,6 +1,8 @@
-export default {
-  name: 'text-color',
-  text(value: string, ctx: any): any {
+import { Theme } from '../theme'
+import { ClassUtility } from './index'
+
+export const TextColor: ClassUtility = {
+  text(value: string, theme: Theme): any {
     //HEX color value
     if (value.match(/^#([a-f0-9]{3}){1,2}\b/i)) {
       return {
@@ -23,7 +25,7 @@ export default {
 
     //text-[name]  =>  { color: var(--prefix-name) } or { color: var(--name) }
     if (value.match(/^\[[a-z0-9]+((\-[a-z0-9]+){1,})?\]$/)) {
-      let prefix = '--' + (ctx.varColorPrefix || ctx.varPrefix || '')
+      let prefix = '--' + (theme.varColorPrefix || theme.varPrefix || '')
       prefix = prefix == '--' ? '-' : prefix
       return {
         color: `var(${prefix}-${value.substring(1, value.length - 1)})`,
@@ -32,7 +34,7 @@ export default {
 
     // search color in theme
     let valueParts = value.split('-')
-    let themeColor = ctx.theme.colors[valueParts[0]]
+    let themeColor = theme.colors[valueParts[0]]
     if (themeColor) {
       if (valueParts.length == 1 && typeof themeColor == 'string') {
         return {
@@ -56,9 +58,9 @@ export default {
       )
       return
     }
-    if (valueParts.length == 1 && ctx.theme.cssColors[value]) {
+    if (valueParts.length == 1 && theme.cssColors[value]) {
       return {
-        color: ctx.theme.cssColors[value],
+        color: theme.cssColors[value],
       }
     }
     return
