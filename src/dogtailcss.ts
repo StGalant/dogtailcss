@@ -12,14 +12,21 @@ const defaultFormatOptions: FormatOptions = {
   screenAutoLevel: true,
 }
 
+export interface CssCompilerResult {
+  screen: string
+  rule: string
+}
+
+export type CssCompiler = (className: string) => CssCompilerResult
+
 export function createDogtailCssCompiler(
   classUtils: ClassUtils,
   theme: Theme,
   options: FormatOptions
-) {
+): CssCompiler {
   let { tabSize, screenAutoLevel } = { ...defaultFormatOptions, ...options }
 
-  return function (className) {
+  return function (className): CssCompilerResult {
     //compilePureClassName
     function compilePureClassName(className: string) {
       let dashIndex = className.length
@@ -66,7 +73,11 @@ export function createDogtailCssCompiler(
       return { screen: 'normal', rule: '' }
     }
 
-    let escClassName = '.' + className.replace(/[#:.,*+?^${}()|[\]\\]/g, '\\$&')
+    let escClassName =
+      '.' +
+      className
+        .replace(/[#:.,*+?^${}()|[\]\\]/g, '\\$&')
+        .replace(/^[0-9]/g, '\\3$& ')
     if (rule && escClassName) {
       return {
         screen,
