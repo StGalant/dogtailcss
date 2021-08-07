@@ -1,10 +1,10 @@
 import { Theme } from './theme'
 import { objectToCss } from './objectToCss'
-import { ClassUtils } from './class-utils'
+import { ClassUtility, ClassUtils } from './class-utils'
 
 export interface FormatOptions {
-  tabSize?: number
-  screenAutoLevel?: boolean
+  tabSize: number
+  screenAutoLevel: boolean
 }
 
 const defaultFormatOptions: FormatOptions = {
@@ -22,7 +22,7 @@ export type CssCompiler = (className: string) => CssCompilerResult
 export function createDogtailCssCompiler(
   classUtils: ClassUtils,
   theme: Theme,
-  options: FormatOptions = {}
+  options = {}
 ): CssCompiler {
   let { tabSize, screenAutoLevel } = { ...defaultFormatOptions, ...options }
 
@@ -33,7 +33,7 @@ export function createDogtailCssCompiler(
       while (dashIndex > 0) {
         let tmpClassName = className.substring(0, dashIndex)
         if (classUtils.has(tmpClassName)) {
-          for (let plugin of classUtils.get(tmpClassName)) {
+          for (let plugin of classUtils.get(tmpClassName) as ClassUtility[]) {
             let rule = plugin[tmpClassName].call(
               undefined,
               className.substring(dashIndex + 1),
@@ -52,7 +52,7 @@ export function createDogtailCssCompiler(
     let scrMinWidth = 0
     let pseudo: string[] = []
     let parts = className.split(':')
-    let pureClassName: string
+    let pureClassName: string = ''
 
     parts.forEach((part) => {
       let scr = theme.screens.find(({ name }) => name === part)
@@ -91,5 +91,6 @@ export function createDogtailCssCompiler(
         ),
       }
     }
+    return { screen: '', rule: '' }
   }
 }

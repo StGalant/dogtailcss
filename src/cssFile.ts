@@ -20,22 +20,23 @@ export function createCssFile(
 
   const css = {
     normal: new Map<string, string>(),
-  }
+  } as { [key: string]: Map<string, string> }
 
   for (let screen of theme.screens) {
-    cssCache[screen.name] = new Map<string, any>()
     css[screen.name] = new Map<string, string>()
   }
 
   return {
-    addClasses(classes: string[] | Set<string>) {
-      for (let className of classes) {
+    addClasses(classes: Set<string>) {
+      for (let className of classes.values()) {
         if (cssCache.has(className)) {
           // add linkCounter
           let cacheObj = cssCache.get(className)
           cacheObj.linkCounter += 1
         } else {
           let { screen = 'normal', rule } = compile(className)
+          if (!rule) return
+
           cssCache.set(className, {
             screen,
             rule,
@@ -46,10 +47,7 @@ export function createCssFile(
       }
     },
 
-    updateClassess(
-      addClasses: string[] | Set<string>,
-      removeClasses?: string[] | Set<string>
-    ) {
+    updateClassess(addClasses: string[], removeClasses: string[]) {
       for (let classToDelete of removeClasses) {
         let cacheObj = cssCache.get(classToDelete)
         if (cacheObj) {
@@ -83,11 +81,8 @@ export function createCssFile(
         cssArray.push('}\n')
       }
 
-      const cssFile = fs.openSync(file, 'w')
-      if (cssFile) {
-        fs.writeSync(cssFile, cssArray.join(''))
-        fs.closeSync(cssFile)
-      }
+      fs.writeFileSync(file, cssArray.join(''))
+
       //TODO handle error
     },
   }

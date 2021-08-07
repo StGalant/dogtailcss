@@ -1,4 +1,4 @@
-import { parseHtml } from '../file-utils/parseHtmlClasses'
+import { parseHtml } from '../file-utils/extractHtmlClasses'
 
 let simpleHtml = `<div class="class-1
 lg:hover:class-2
