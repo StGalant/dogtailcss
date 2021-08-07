@@ -22,7 +22,7 @@ export type CssCompiler = (className: string) => CssCompilerResult
 export function createDogtailCssCompiler(
   classUtils: ClassUtils,
   theme: Theme,
-  options: FormatOptions
+  options: FormatOptions = {}
 ): CssCompiler {
   let { tabSize, screenAutoLevel } = { ...defaultFormatOptions, ...options }
 

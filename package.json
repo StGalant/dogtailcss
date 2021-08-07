@@ -17,6 +17,7 @@
   },
   "homepage": "https://bitbucket.org/st_galant/dogtailcss#readme",
   "dependencies": {
+    "chokidar": "^3.5.2",
     "fast-glob": "^3.2.7",
     "micromatch": "^4.0.4",
     "modern-normalize": "^1.1.0"
