@@ -62,11 +62,11 @@ export function patchFileClasses(
 
   if (trackedFiles.has(file)) {
     let oldClasses = trackedFiles.get(file) as Set<string>
-    for (let newClass of newClasses.values()) {
+    for (let newClass of newClasses) {
       if (!oldClasses.has(newClass)) classesToAdd.push(newClass)
     }
 
-    for (let oldClass of oldClasses.values()) {
+    for (let oldClass of oldClasses) {
       if (!newClasses.has(oldClass)) classesToDelete.push(oldClass)
     }
   } else {

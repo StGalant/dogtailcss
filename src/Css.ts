@@ -1,9 +1,6 @@
 export interface Css {
-  addClasses(classes: string[] | Set<string>)
-  updateClassess(
-    addClasses: string[] | Set<string>,
-    removeClasses?: string[] | Set<string>
-  )
-  applyClasses()
+  addClasses(classes: string[] | Set<string>): void
+  updateClassess(addClasses: string[], removeClasses?: string[]): void
+  applyClasses(): void
   [key: string]: any
 }

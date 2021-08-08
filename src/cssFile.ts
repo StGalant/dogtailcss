@@ -28,7 +28,7 @@ export function createCssFile(
 
   return {
     addClasses(classes: Set<string>) {
-      for (let className of classes.values()) {
+      for (let className of classes) {
         if (cssCache.has(className)) {
           // add linkCounter
           let cacheObj = cssCache.get(className)

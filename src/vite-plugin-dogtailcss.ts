@@ -1,14 +1,3 @@
-import listFiles from './file-utils/listFiles'
-import * as path from 'path'
-
-const filesPatterns = [
-  'src/components/**/*.vue',
-  'src/pages/**/*.vue',
-  'src/layouts/**/*.vue',
-].map((f) => path.resolve(f))
-
-let files = []
-
 export default function TailCssPlugin() {
   return {
     name: 'tailcss-plugin',

@@ -2,7 +2,8 @@
   "name": "dogtailcss",
   "version": "1.0.0",
   "description": "CSS framework with dynamically generated utility classess",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest"
   },

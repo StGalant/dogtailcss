@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "outDir": "dist",
     "sourceMap": false,
-    "target": "es2016",
+    "target": "es6",
     "useDefineForClassFields": false,
     "module": "esnext",
     "moduleResolution": "node",
@@ -14,33 +14,15 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "removeComments": false,
-    "jsx": "preserve",
+    "declaration": true,
     "lib": [
-      "esnext",
-      "dom"
+      "esnext"
     ],
     "types": [
       "jest",
       "node"
     ],
-    "rootDir": ".",
-    // "paths": {
-    //   "@vue/compat": [
-    //     "packages/vue-compat/src"
-    //   ],
-    //   "@vue/*": [
-    //     "packages/*/src"
-    //   ],
-    //   "vue": [
-    //     "packages/vue/src"
-    //   ]
-    // }
+    "rootDir": "./src",
   },
-  // "include": [
-  //   "packages/global.d.ts",
-  //   "packages/*/src",
-  //   "packages/runtime-dom/types/jsx.d.ts",
-  //   "packages/*/__tests__",
-  //   "test-dts"
-  // ]
+
 }
