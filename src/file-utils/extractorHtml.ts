@@ -1,6 +1,4 @@
-export type HtmlParser = (html: string) => Set<string>
-
-export function parseHtml(html: string): Set<string> {
+export default function extractor(html: string): Set<string> {
   let result = new Set<string>()
 
   const regex = /<\w+[^<>]+\sclass\s*=\s*"([^<>"]+)"[^<>]*>/gms

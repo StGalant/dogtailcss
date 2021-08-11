@@ -1,4 +1,4 @@
-import { TextColor } from './TextColor'
+import { TextColor } from './TextColor.js'
 
 export interface ClassUtility {
   [key: string]: Function

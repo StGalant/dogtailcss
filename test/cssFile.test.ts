@@ -24,7 +24,7 @@ afterAll(() => {
 
 test('create cssFile instance', () => {
   const cssFile = createCssFile('dogtail.test.css', theme, compiler)
-  cssFile.applyClasses()
+  cssFile.applySync()
   const result = fs.readFileSync('dogtail.test.css', 'utf8')
 
   expect(result).toEqual(
@@ -48,14 +48,15 @@ test('create cssFile instance', () => {
 
 test('compile several screens', () => {
   const cssFile = createCssFile('dogtail.test.css', theme, compiler)
-  cssFile.addClasses(
+  cssFile.add(
+    '1',
     new Set(
       'text-black xs:text-white lg:text-(200,100,100) 2xl:text-maroon'.split(
         /\s+/
       )
     )
   )
-  cssFile.applyClasses()
+  cssFile.applySync()
   const result = fs.readFileSync('dogtail.test.css', 'utf8')
   //   console.log(result)
   expect(result).toEqual(

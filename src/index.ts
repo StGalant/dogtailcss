@@ -1,2 +1,5 @@
-export * from './dogtailcss'
-export * from './cssFile'
+export * from './dogtailcss.js'
+export * from './cssFile.js'
+export * from './theme/index.js'
+export * from './file-utils/cssExtractor.js'
+export * from './class-utils/index.js'

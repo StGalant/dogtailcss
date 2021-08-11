@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "CSS framework with dynamically generated utility classess",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "bin": "dist/cli.js",
+  "types": "dist/types/index.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",

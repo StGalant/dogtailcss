@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": "./src",
     "outDir": "dist",
-    "sourceMap": false,
     "target": "es6",
     "useDefineForClassFields": false,
     "module": "esnext",
@@ -15,14 +15,10 @@
     "esModuleInterop": true,
     "removeComments": false,
     "declaration": true,
-    "lib": [
-      "esnext"
-    ],
-    "types": [
-      "jest",
-      "node"
-    ],
-    "rootDir": "./src",
+    "declarationDir": "dist/types",
+    "declarationMap": true,
+    "lib": ["esnext"],
+    "types": ["jest", "node"]
   },
-
+  "exclude": ["./test", ".test-app"]
 }

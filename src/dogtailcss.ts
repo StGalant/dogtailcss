@@ -1,6 +1,6 @@
-import { Theme } from './theme'
-import { objectToCss } from './objectToCss'
-import { ClassUtility, ClassUtils } from './class-utils'
+import { Theme } from './theme/index.js'
+import { objectToCss } from './objectToCss.js'
+import { ClassUtility, ClassUtils } from './class-utils/index.js'
 
 export interface FormatOptions {
   tabSize: number

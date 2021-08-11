@@ -1,7 +1,7 @@
-import { colors, ThemeColors } from './colors'
-import { cssColors, ThemeCssColors } from './cssColors'
-import { pseudoClasses, ThemePseudoclassess } from './pseudoClasses'
-import { screens, ThemeScreens } from './screens'
+import { colors, ThemeColors } from './colors.js'
+import { cssColors, ThemeCssColors } from './cssColors.js'
+import { pseudoClasses, ThemePseudoclassess } from './pseudoClasses.js'
+import { screens, ThemeScreens } from './screens.js'
 
 export interface Theme {
   colors: ThemeColors
