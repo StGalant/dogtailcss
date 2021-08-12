@@ -1,6 +1,7 @@
 /** @type {import('@ts-jest/dist/types').InitialOptionsTsJest} */
-module.exports = {
+export default {
   preset: 'ts-jest',
+  resolver: 'ts-jest-resolver',
   globals: {},
   testEnvironment: 'node',
   transform: {},
