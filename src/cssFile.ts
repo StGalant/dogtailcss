@@ -1,7 +1,11 @@
 import * as fs from 'fs'
 import { Css } from './Css'
 import { createClassUtils } from './class-utils/index.js'
-import { createDogtailCssCompiler, CssCompiler } from './dogtailcss.js'
+import {
+  createCssCompiler,
+  CssCompiler,
+  CssCompilerResult,
+} from './cssCompiler.js'
 import { Theme } from './theme/index.js'
 import { createDiffTracker } from './diffTracker.js'
 
@@ -12,7 +16,7 @@ export function createCssFile(
 ): Css {
   const compile =
     compiler ||
-    createDogtailCssCompiler(createClassUtils(), theme, {
+    createCssCompiler(createClassUtils(), theme, {
       tabSize: 4,
       screenAutoLevel: true,
     })
@@ -36,13 +40,20 @@ export function createCssFile(
       let { classesToAdd, classesToDelete } = diffTracker.add(id, classes)
       if (classesToAdd.length || classesToDelete.length) modified = true
 
+      //delete missed classess
       for (let classToDelete of classesToDelete) {
         let cacheObj = cssCache.get(classToDelete)
         if (cacheObj) {
           cacheObj.linkCounter -= 1
           if (cacheObj.linkCounter < 1) {
+            if (cacheObj.screen instanceof Array) {
+              for (let screen of cacheObj.screen) {
+                css[screen].delete(classToDelete)
+              }
+            } else {
+              css[cacheObj.screen].delete(classToDelete)
+            }
             cssCache.delete(classToDelete)
-            css[cacheObj.screen].delete(classToDelete)
           }
         }
       }
@@ -53,14 +64,26 @@ export function createCssFile(
           let cacheObj = cssCache.get(className)
           cacheObj.linkCounter += 1
         } else {
-          let { screen = 'normal', rule } = compile(className)
-          if (rule) {
+          const compileResult = compile(className)
+          if (compileResult instanceof Array) {
+            let screen = []
+            for (let res of compileResult) {
+              screen.push(res.screen)
+              css[res.screen].set(className, res.rule)
+            }
             cssCache.set(className, {
               screen,
-              rule,
-              linkCounter: 1, // smart pointer
+              linkCounter: 1,
             })
-            css[screen].set(className, rule)
+          } else {
+            let { screen = 'normal', rule } = compileResult as CssCompilerResult
+            if (rule) {
+              cssCache.set(className, {
+                screen,
+                linkCounter: 1, // smart pointer
+              })
+              css[screen].set(className, rule)
+            }
           }
         }
       }
@@ -74,7 +97,13 @@ export function createCssFile(
           cacheObj.linkCounter -= 1
           if (cacheObj.linkCounter < 1) {
             cssCache.delete(classToDelete)
-            css[cacheObj.screen].delete(classToDelete)
+            if (cacheObj.screen instanceof Array) {
+              for (let screen of cacheObj.screen) {
+                css[screen].delete(classToDelete)
+              }
+            } else {
+              css[cacheObj.screen].delete(classToDelete)
+            }
           }
         }
       }

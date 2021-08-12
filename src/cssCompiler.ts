@@ -17,16 +17,17 @@ export interface CssCompilerResult {
   rule: string
 }
 
-export type CssCompiler = (className: string) => CssCompilerResult
+export type CssCompiler = (
+  className: string
+) => CssCompilerResult | CssCompilerResult[]
 
-export function createDogtailCssCompiler(
+export function createCssCompiler(
   classUtils: ClassUtils,
   theme: Theme,
   options = {}
 ): CssCompiler {
   let { tabSize, screenAutoLevel } = { ...defaultFormatOptions, ...options }
-
-  return function (className): CssCompilerResult {
+  return function (className): CssCompilerResult | CssCompilerResult[] {
     //compilePureClassName
     function compilePureClassName(className: string) {
       let dashIndex = className.length
@@ -47,7 +48,15 @@ export function createDogtailCssCompiler(
         dashIndex = className.lastIndexOf('-', dashIndex - 1)
       }
     } //compilePureClassName
-
+    //escapedClassName
+    function escapedClassName(className: string): string {
+      return (
+        '.' +
+        className
+          .replace(/[#:.,*+?^${}()|[\]\\]/g, '\\$&')
+          .replace(/^[0-9]/g, '\\3$& ')
+      )
+    }
     let screen = 'normal'
     let scrMinWidth = 0
     let pseudo: string[] = []
@@ -72,25 +81,38 @@ export function createDogtailCssCompiler(
     if (!rule) {
       return { screen: 'normal', rule: '' }
     }
-
-    let escClassName =
-      '.' +
-      className
-        .replace(/[#:.,*+?^${}()|[\]\\]/g, '\\$&')
-        .replace(/^[0-9]/g, '\\3$& ')
-    if (rule && escClassName) {
-      return {
-        screen,
-        rule: objectToCss(
-          `${escClassName}${pseudo.join('')}`,
-          rule,
-          screenAutoLevel && screen === 'normal' ? 0 : 1,
-          {
-            tabSize,
-          }
-        ),
+    let escClassName = escapedClassName(className)
+    if (rule instanceof Array) {
+      let rules = []
+      for (let r of rule) {
+        rules.push({
+          screen: r.screen,
+          rule: objectToCss(
+            `${escClassName}${pseudo.join('')}`,
+            r.rule,
+            screenAutoLevel && r.screen === 'normal' ? 0 : 1,
+            {
+              tabSize,
+            }
+          ),
+        })
+      }
+      return rules
+    } else {
+      if (rule && escClassName) {
+        return {
+          screen,
+          rule: objectToCss(
+            `${escClassName}${pseudo.join('')}`,
+            rule,
+            screenAutoLevel && screen === 'normal' ? 0 : 1,
+            {
+              tabSize,
+            }
+          ),
+        }
       }
     }
-    return { screen: '', rule: '' }
+    return { screen: 'normal', rule: '' }
   }
 }

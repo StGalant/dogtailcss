@@ -1,11 +1,25 @@
-import { TextColor } from './TextColor.js'
+import { Theme } from '../theme/index.js'
+import { textColor } from './textColor.js'
+import layout from './layout/index.js'
+
+export interface ClassUtilResult {
+  [key: string]: any
+}
+
+export interface ClassUtilResultElement {
+  screen: string
+  rule: ClassUtilResult
+}
 
 export interface ClassUtility {
-  [key: string]: Function
+  [key: string]: (
+    value: string,
+    theme: Theme
+  ) => ClassUtilResult | ClassUtilResultElement[] | void
 }
 
 export type ClassUtils = Map<String, ClassUtility[]>
-const defaultUtils: ClassUtility[] = [TextColor]
+const defaultUtils: ClassUtility[] = [...layout, textColor]
 
 export function createClassUtils(addons: ClassUtility[] = []): ClassUtils {
   let utils: ClassUtils = new Map<String, ClassUtility[]>()

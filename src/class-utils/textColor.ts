@@ -1,7 +1,7 @@
 import { Theme } from '../theme/index.js'
 import { ClassUtility } from './index.js'
 
-export const TextColor: ClassUtility = {
+export const textColor: ClassUtility = {
   text(value: string, theme: Theme): any {
     //HEX color value
     if (value.match(/^#([a-f0-9]{3}){1,2}\b/i)) {

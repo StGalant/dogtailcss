@@ -1,6 +1,7 @@
 import fg from 'fast-glob'
 import fs from 'fs'
 import micromatch from 'micromatch'
+import { relative } from 'path'
 import htmlExtractor from './extractorHtml.js'
 
 function listFiles(patterns: string[]): string[] {
@@ -36,8 +37,8 @@ export function createCssExtractor(patterns: string[]) {
       }
       //TODO determine filetype and filter it properly
     },
-    extract(file: string): Promise<Set<string>> {
-      if (!this.isMatch(file)) return Promise.reject()
+    extract(file: string): Promise<Set<string>> | Promise<void> {
+      if (!this.isMatch(file)) return Promise.resolve()
       return fs.promises.readFile(file, { encoding: 'utf-8' }).then(
         (fileContent) => {
           //TODO determine filetype and filter it properly
@@ -50,7 +51,8 @@ export function createCssExtractor(patterns: string[]) {
       )
     },
     isMatch(file: string): boolean {
-      return micromatch.isMatch(file, patterns)
+      const path = relative('.', file)
+      return micromatch.isMatch(path, patterns)
     },
   }
 }

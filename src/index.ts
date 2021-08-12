@@ -1,4 +1,4 @@
-export * from './dogtailcss.js'
+export * from './cssCompiler.js'
 export * from './cssFile.js'
 export * from './theme/index.js'
 export * from './file-utils/cssExtractor.js'
