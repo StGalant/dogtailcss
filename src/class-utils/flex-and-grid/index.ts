@@ -3,5 +3,6 @@ import { flexDirection } from './flexDirection.js'
 import { flexWrap } from './flexWrap.js'
 import { flexGrow } from './flexGrow.js'
 import { order } from './order.js'
+import { gridTemplate } from './gridTemplate'
 
-export default [flex, flexDirection, flexWrap, flexGrow, order]
+export default [flex, flexDirection, flexWrap, flexGrow, order, gridTemplate]

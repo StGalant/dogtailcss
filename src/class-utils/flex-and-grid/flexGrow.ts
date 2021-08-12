@@ -8,7 +8,7 @@ export const flexGrow: ClassUtility = {
       }
     }
 
-    if (parseInt(value)) {
+    if (value.match(/^\d+$/)) {
       return {
         'flex-grow': value,
       }
@@ -21,7 +21,7 @@ export const flexGrow: ClassUtility = {
       }
     }
 
-    if (parseInt(value)) {
+    if (value.match(/^\d+$/)) {
       return {
         'flex-shrink': value,
       }

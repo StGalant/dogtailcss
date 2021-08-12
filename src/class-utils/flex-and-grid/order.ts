@@ -13,7 +13,7 @@ export const order = {
       order = '0'
     }
 
-    if (order !== '0' && !parseInt(order)) {
+    if (!order.match(/^\d+$/)) {
       order = ''
     }
 

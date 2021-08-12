@@ -1,16 +1,16 @@
-import { createDogtailCssCompiler } from '../src/dogtailcss'
+import { createCssCompiler, CssCompilerResult } from '../src/cssCompiler'
 import { createClassUtils } from '../src/class-utils'
 import { theme } from '../src/theme'
 
 let tabSize = 4
-let compile = createDogtailCssCompiler(createClassUtils(), theme, { tabSize })
+let compile = createCssCompiler(createClassUtils(), theme, { tabSize })
 let t = ' '.repeat(tabSize)
 interface ColorWithSub {
   [key: string]: string
 }
 
 test('compile sm:text-red-500', () => {
-  let { screen, rule } = compile('sm:text-red-500')
+  let { screen, rule } = compile('sm:text-red-500') as CssCompilerResult
   expect(screen).toBe('sm')
   expect(rule).toBe(
     `${t}.sm\\:text-red-500 {\n${t}${t}color: ${

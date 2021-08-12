@@ -86,7 +86,8 @@ export const display: ClassUtility = {
       display: 'flow-root',
     }
   },
-  grid(): ClassUtilResult {
+  grid(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       display: 'grid',
     }
