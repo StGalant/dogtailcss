@@ -1,7 +1,8 @@
 import { ClassUtility, ClassUtilResult } from '../index.js'
 
 export const isolation: ClassUtility = {
-  isolate(): ClassUtilResult {
+  isolate(value): ClassUtilResult | void {
+    if (value) return
     return {
       isolation: 'isolate',
     }

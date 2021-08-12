@@ -53,7 +53,7 @@ export function createCssCompiler(
       return (
         '.' +
         className
-          .replace(/[#:.,*+?^${}()|[\]\\]/g, '\\$&')
+          .replace(/[#:.,*+?%^${}()|[\]\\/]/g, '\\$&')
           .replace(/^[0-9]/g, '\\3$& ')
       )
     }

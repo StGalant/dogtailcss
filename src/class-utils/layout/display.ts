@@ -1,22 +1,26 @@
 import { ClassUtility, ClassUtilResult } from '../../index.js'
 
 export const display: ClassUtility = {
-  block(): ClassUtilResult {
+  block(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       display: 'block',
     }
   },
-  'inline-block'(): ClassUtilResult {
+  'inline-block'(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       display: 'inline-block',
     }
   },
-  inline(): ClassUtilResult {
+  inline(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       display: 'inline',
     }
   },
-  flex(): ClassUtilResult {
+  flex(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       display: 'flex',
     }
@@ -26,7 +30,8 @@ export const display: ClassUtility = {
       display: 'inline-flex',
     }
   },
-  table(): ClassUtilResult {
+  table(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       display: 'table',
     }

@@ -1,6 +1,7 @@
 import { Theme } from '../theme/index.js'
 import { textColor } from './textColor.js'
 import layout from './layout/index.js'
+import flexAndGrid from './flex-and-grid/index.js'
 
 export interface ClassUtilResult {
   [key: string]: any
@@ -19,7 +20,7 @@ export interface ClassUtility {
 }
 
 export type ClassUtils = Map<String, ClassUtility[]>
-const defaultUtils: ClassUtility[] = [...layout, textColor]
+const defaultUtils: ClassUtility[] = [...layout, ...flexAndGrid, textColor]
 
 export function createClassUtils(addons: ClassUtility[] = []): ClassUtils {
   let utils: ClassUtils = new Map<String, ClassUtility[]>()

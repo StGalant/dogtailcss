@@ -2,7 +2,8 @@ import { Theme } from '../../theme/index.js'
 import { ClassUtility, ClassUtilResultElement } from '../../index.js'
 
 export const container: ClassUtility = {
-  container(_value: string, theme: Theme) {
+  container(value: string, theme: Theme) {
+    if (value) return
     //TODO dynamic walues
     const rules: ClassUtilResultElement[] = [
       {

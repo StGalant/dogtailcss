@@ -1,10 +1,6 @@
 import { Theme } from '../../theme/index.js'
 import { ClassUtility, ClassUtilResult } from '../index.js'
 
-const specialSpacing = {
-  auto: 'auto',
-}
-
 export const anchors: ClassUtility = {
   inset(value: string, theme: Theme): ClassUtilResult | void {
     let space = theme.spacing[value]

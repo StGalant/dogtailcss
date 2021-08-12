@@ -1,27 +1,32 @@
 import { ClassUtility, ClassUtilResult } from '../index.js'
 
 export const position: ClassUtility = {
-  static(): ClassUtilResult {
+  static(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       position: 'static',
     }
   },
-  fixed(): ClassUtilResult {
+  fixed(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       position: 'fixed',
     }
   },
-  absolute(): ClassUtilResult {
+  absolute(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       position: 'absolute',
     }
   },
-  relative(): ClassUtilResult {
+  relative(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       position: 'relative',
     }
   },
-  sticky(): ClassUtilResult {
+  sticky(value: string): ClassUtilResult | void {
+    if (value) return
     return {
       position: 'sticky',
     }
