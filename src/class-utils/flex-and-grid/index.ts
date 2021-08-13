@@ -3,10 +3,11 @@ import { flexDirection } from './flexDirection.js'
 import { flexWrap } from './flexWrap.js'
 import { flexGrow } from './flexGrow.js'
 import { order } from './order.js'
-import { gridTemplate } from './gridTemplate'
-import { gridPlacing } from './gridPlacing'
-import { gridAutoFlow } from './gridAutoFlow'
-import { gridAuto } from './gridAuto'
+import { gridTemplate } from './gridTemplate.js'
+import { gridPlacing } from './gridPlacing.js'
+import { gridAutoFlow } from './gridAutoFlow.js'
+import { gridAuto } from './gridAuto.js'
+import { gap } from './gap.js'
 
 export default [
   flex,
@@ -18,4 +19,5 @@ export default [
   gridPlacing,
   gridAutoFlow,
   gridAuto,
+  gap,
 ]
