@@ -1,7 +1,9 @@
 import { Theme } from '../theme/index.js'
-import { textColor } from './textColor.js'
+import typorgaphy from './typorgaphy/index.js'
 import layout from './layout/index.js'
 import flexAndGrid from './flex-and-grid/index.js'
+import spacing from './spacing/index.js'
+import sizing from './sizing/index.js'
 
 export interface ClassUtilResult {
   [key: string]: any
@@ -20,7 +22,22 @@ export interface ClassUtility {
 }
 
 export type ClassUtils = Map<String, ClassUtility[]>
-const defaultUtils: ClassUtility[] = [...layout, ...flexAndGrid, textColor]
+const defaultUtils: ClassUtility[] = [
+  ...layout,
+  ...flexAndGrid,
+  ...spacing,
+  ...sizing,
+  ...typorgaphy,
+]
+
+export function getSpacing(value: string, theme: Theme): string {
+  let sign = value.substring(0, 1) === '-' ? '-' : ''
+  let uValue = sign ? value.substring(1) : value
+  let space =
+    theme.spacing[uValue] ||
+    (uValue.match(/^\d+(\.\d+)?(px|%|em|rem|wv|wh)$/g) ? uValue : '')
+  return space ? sign + space : ''
+}
 
 export function createClassUtils(addons: ClassUtility[] = []): ClassUtils {
   let utils: ClassUtils = new Map<String, ClassUtility[]>()

@@ -1,5 +1,5 @@
-import { Theme } from '../theme/index.js'
-import { ClassUtility } from './index.js'
+import { Theme } from '../../theme/index.js'
+import { ClassUtility } from '../index.js'
 
 export const textColor: ClassUtility = {
   text(value: string, theme: Theme): any {

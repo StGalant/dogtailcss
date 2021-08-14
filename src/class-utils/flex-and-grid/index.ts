@@ -8,6 +8,12 @@ import { gridPlacing } from './gridPlacing.js'
 import { gridAutoFlow } from './gridAutoFlow.js'
 import { gridAuto } from './gridAuto.js'
 import { gap } from './gap.js'
+import { justifyContent } from './justifyContent.js'
+import { justifyItems } from './justifyItems.js'
+import { alignContent } from './alignContent.js'
+import { alignItems } from './alignItems.js'
+import { placeContent } from './placeContent.js'
+import { placeItems } from './placeItems.js'
 
 export default [
   flex,
@@ -20,4 +26,10 @@ export default [
   gridAutoFlow,
   gridAuto,
   gap,
+  justifyContent,
+  justifyItems,
+  alignContent,
+  alignItems,
+  placeContent,
+  placeItems,
 ]
