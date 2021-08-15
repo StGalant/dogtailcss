@@ -1,10 +1,13 @@
+import { match } from 'assert/strict'
 import { Theme } from '../../theme/index.js'
 import { ClassUtility } from '../index.js'
 
 export const textColor: ClassUtility = {
   text(value: string, theme: Theme): any {
+    if (!value) return
+
     //HEX color value
-    if (value.match(/^#([a-f0-9]{3}){1,2}\b/i)) {
+    if (value.match(/^#([a-f0-9]{3}){1,2}$/i)) {
       return {
         color: value,
       }
@@ -33,36 +36,46 @@ export const textColor: ClassUtility = {
     }
 
     // search color in theme
-    let valueParts = value.split('-')
-    let themeColor = theme.colors[valueParts[0]]
-    if (themeColor) {
-      if (valueParts.length == 1 && typeof themeColor == 'string') {
+    if (value.match(/^\w+(-\w+)?$/g)) {
+      let color = value.split('-').reduce((_, c) => c)
+      if (!color) return
+      if (!theme.useVarOpacity) {
         return {
-          color: themeColor,
+          color,
         }
       }
-      if (
-        valueParts.length == 2 &&
-        typeof themeColor == 'object' &&
-        themeColor[valueParts[1]]
-      ) {
-        return {
-          color: themeColor[valueParts[1]],
+      if (theme.useVarOpacity) {
+        let r, g, b
+        if (color.match(/^#([a-f0-9]{3})$/i)) {
+          r = parseInt(color.substring(1, 2))
+          g = parseInt(color.substring(2, 3))
+          b = parseInt(color.substring(3, 4))
         }
-      }
+        if (color.match(/^#([a-f0-9]{6})$/i)) {
+          r = parseInt(color.substring(1, 3))
+          g = parseInt(color.substring(3, 5))
+          b = parseInt(color.substring(5, 7))
+        }
 
-      console.warn(
-        'CSS compilation failed for text-' +
-          value +
-          ' : Color not found in theme'
-      )
-      return
-    }
-    if (valueParts.length == 1 && theme.cssColors[value]) {
-      return {
-        color: theme.cssColors[value],
+        if (r && g && b) {
+          let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
+          color = `rgba(${r}, ${g}, ${b}, var(${prefix}-text-opacity))`
+          return {
+            [`${prefix}-text-opacity)`]: '1',
+            color,
+          }
+        }
       }
     }
-    return
+  },
+  'text-opacity'(value: string, theme: Theme) {
+    if (!value) return
+    if (value.match(/^\d+$/)) {
+      let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
+      let opacity = (parseFloat(value) / 100).toFixed(4)
+      return {
+        [`${prefix}-text-opacity)`]: opacity,
+      }
+    }
   },
 }
