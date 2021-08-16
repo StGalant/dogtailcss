@@ -5,7 +5,9 @@ export const fontSize = {
   text(value: string, theme: Theme): ClassUtilResult | void {
     if (!value) return
 
-    let { value: fontSize, lineHeight } = theme.fontSize[value]
+    let { value: fontSize, lineHeight } = theme.fontSize[value] || {
+      value: null,
+    }
 
     if (fontSize) {
       let result: ClassUtilResult = {

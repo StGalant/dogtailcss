@@ -1,4 +1,3 @@
-import { match } from 'assert/strict'
 import { Theme } from '../../theme/index.js'
 import { ClassUtility } from '../index.js'
 
@@ -37,7 +36,15 @@ export const textColor: ClassUtility = {
 
     // search color in theme
     if (value.match(/^\w+(-\w+)?$/g)) {
-      let color = value.split('-').reduce((_, c) => c)
+      let colorParts = value.split('-')
+      let color = theme.colors[colorParts[0]]
+
+      if (typeof color === 'string' && colorParts[1]) return
+
+      if (typeof color === 'object') {
+        color = color[colorParts[1]]
+      }
+
       if (!color) return
       if (!theme.useVarOpacity) {
         return {
@@ -47,14 +54,14 @@ export const textColor: ClassUtility = {
       if (theme.useVarOpacity) {
         let r, g, b
         if (color.match(/^#([a-f0-9]{3})$/i)) {
-          r = parseInt(color.substring(1, 2))
-          g = parseInt(color.substring(2, 3))
-          b = parseInt(color.substring(3, 4))
+          r = parseInt(color.substring(1, 2), 16)
+          g = parseInt(color.substring(2, 3), 16)
+          b = parseInt(color.substring(3, 4), 16)
         }
         if (color.match(/^#([a-f0-9]{6})$/i)) {
-          r = parseInt(color.substring(1, 3))
-          g = parseInt(color.substring(3, 5))
-          b = parseInt(color.substring(5, 7))
+          r = parseInt(color.substring(1, 3), 16)
+          g = parseInt(color.substring(3, 5), 16)
+          b = parseInt(color.substring(5, 7), 16)
         }
 
         if (r && g && b) {
@@ -72,9 +79,9 @@ export const textColor: ClassUtility = {
     if (!value) return
     if (value.match(/^\d+$/)) {
       let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
-      let opacity = (parseFloat(value) / 100).toFixed(4)
+      let opacity = (parseInt(value, 16) / 100).toFixed(4)
       return {
-        [`${prefix}-text-opacity)`]: opacity,
+        [`${prefix}-text-opacity`]: opacity,
       }
     }
   },
