@@ -19,13 +19,13 @@ export const fontSize = {
       return result
     }
 
-    if (value.match(/^\d+(\.\d+)?$/)) {
+    if (/^\d+(\.\d+)?$/.test(value)) {
       return {
         'font-size': value,
       }
     }
 
-    if (value.match(/^\d+(\.\d+)?-\d+(\.\d+)?$/)) {
+    if (/^\d+(\.\d+)?-\d+(\.\d+)?$/.test(value)) {
       let [fontSize, lineHeight] = value.split('-')
       return {
         'font-size': fontSize,

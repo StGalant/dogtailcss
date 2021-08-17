@@ -10,7 +10,7 @@ export const margin = {
         margin: space,
       }
     }
-    if (value.match(/^-?[^-]+-(-?[^-]+-)?(-?[^-]+-)?-?[^-]+$/g)) {
+    if (/^-?[^-]+-(-?[^-]+-)?(-?[^-]+-)?-?[^-]+$/.test(value)) {
       let matches: string[] = value
         .matchAll(/^(-?[^-]+)-(-?[^-]+-)?(-?[^-]+-)?(-?[^-]+)$/g)
         .next()
@@ -35,7 +35,7 @@ export const margin = {
         'margin-right': space,
       }
     }
-    if (value.match(/^-?[^-]+--?[^-]+$/g)) {
+    if (/^-?[^-]+--?[^-]+$/.test(value)) {
       let matches = value.matchAll(/^(-?[^-]+)-(-?[^-]+)$/g).next().value
       let left = getSpacing(matches[1], theme)
       if (!left) return
@@ -56,7 +56,7 @@ export const margin = {
         'margin-bottom': space,
       }
     }
-    if (value.match(/^-?[^-]+--?[^-]+$/g)) {
+    if (/^-?[^-]+--?[^-]+$/.test(value)) {
       let matches = value.matchAll(/^(-?[^-]+)-(-?[^-]+)$/g).next().value
       let top = getSpacing(matches[1], theme)
       if (!top) return

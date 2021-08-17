@@ -21,10 +21,18 @@ export const flex: ClassUtility = {
       flex: 'none',
     }
   },
+
+  //flex-[1,0,50%] => { flex: 1 0 50% }
+  //flex-[1,1,max] => { flex: 1 1 max-content}
+  //no CSS correctness check sorry
   flex(value: string) {
-    if (value.match(/^\(\w+,\w+,\w+%?\)$/)) {
+    if (/^\[\w+,\w+,\w+%?\]$/.test(value)) {
+      let [_, grow, shrink, basis] = value
+        .matchAll(/^\[(\w+),(\w+),(\w+%?)\]$/g)
+        .next().value as string[]
+      basis = basis.replace(/^(min|max|fit)$/, '$&-content')
       return {
-        flex: value.replaceAll(/[(,)]/g, ' '),
+        flex: `${grow} ${shrink} ${basis}`,
       }
     }
   },

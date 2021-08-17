@@ -1,7 +1,7 @@
 export const placeItems = {
   'place-items'(value: string) {
     if (!value) return
-    if (value.match(/^(start|end|center|stretch)$/g)) {
+    if (/^(start|end|center|stretch)$/.test(value)) {
       return {
         'place-items': value,
       }
@@ -9,7 +9,7 @@ export const placeItems = {
   },
   'place-self'(value: string) {
     if (!value) return
-    if (value.match(/^(auto|start|end|center|stretch)$/g)) {
+    if (/^(auto|start|end|center|stretch)$/.test(value)) {
       return {
         'place-items': value,
       }

@@ -7,7 +7,7 @@ export const gridPlacing = {
       }
     }
 
-    if (value.match(/^-?\d+$/)) {
+    if (/^-?\d+$/.test(value)) {
       return {
         'grid-column-start': value,
       }
@@ -20,7 +20,7 @@ export const gridPlacing = {
       }
     }
 
-    if (value.match(/^-?\d+$/)) {
+    if (/^-?\d+$/.test(value)) {
       return {
         'grid-column-end': value,
       }
@@ -33,21 +33,21 @@ export const gridPlacing = {
       }
     }
 
-    if (value.match(/^\d+$/)) {
+    if (/^\d+$/.test(value)) {
       return {
         'grid-column': `span ${value} / span ${value}`,
       }
     }
   },
   col(value: string) {
-    if (value.match(/^-?\d+--?\d+$/)) {
+    if (/^-?\d+--?\d+$/.test(value)) {
       let [_, start, end] = value.matchAll(/^(-?\d+)-(-?\d+)$/g).next().value
       return {
         'grid-column': `${start} / ${end}`,
       }
     }
 
-    if (value.match(/^-?\d+-span-\d+$/)) {
+    if (/^-?\d+-span-\d+$/.test(value)) {
       let [_, start, span] = value
         .matchAll(/^(-?\d+)-span-(\d+)$/g)
         .next().value
@@ -65,7 +65,7 @@ export const gridPlacing = {
       }
     }
 
-    if (value.match(/^-?\d+$/)) {
+    if (/^-?\d+$/.test(value)) {
       return {
         'grid-row-start': value,
       }
@@ -78,7 +78,7 @@ export const gridPlacing = {
       }
     }
 
-    if (value.match(/^-?\d+$/)) {
+    if (/^-?\d+$/.test(value)) {
       return {
         'grid-row-end': value,
       }
@@ -91,21 +91,21 @@ export const gridPlacing = {
       }
     }
 
-    if (value.match(/^\d+$/)) {
+    if (/^\d+$/.test(value)) {
       return {
         'grid-row': `span ${value} / span ${value}`,
       }
     }
   },
   row(value: string) {
-    if (value.match(/^-?\d+--?\d+$/)) {
+    if (/^-?\d+--?\d+$/.test(value)) {
       let [_, start, end] = value.matchAll(/^(-?\d+)-(-?\d+)$/g).next().value
       return {
         'grid-row': `${start} / ${end}`,
       }
     }
 
-    if (value.match(/^-?\d+-span-\d+$/)) {
+    if (/^-?\d+-span-\d+$/.test(value)) {
       let [_, start, span] = value
         .matchAll(/^(-?\d+)-span-(\d+)$/g)
         .next().value

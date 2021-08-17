@@ -1,13 +1,13 @@
 export const placeContent = {
   'place-content'(value: string) {
     if (!value) return
-    if (value.match(/^(center|start|end|stretch)$/g)) {
+    if (/^(center|start|end|stretch)$/.test(value)) {
       return {
         'place-content': value,
       }
     }
 
-    if (value.match(/^(between|around|evenly)$/g)) {
+    if (/^(between|around|evenly)$/.test(value)) {
       return {
         'place-content': 'space-' + value,
       }

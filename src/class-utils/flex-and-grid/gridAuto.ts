@@ -18,14 +18,14 @@ export const gridAuto = {
     }
     // auto-rows-2fr => { grid-auto-rows: monmax(0, 2fr); }
     if (!autoCols) {
-      if (value.match(/^\d+(\.\d+)?(fr|px|%)$/g)) {
+      if (/^\d+(\.\d+)?(fr|px|%)$/.test(value)) {
         autoCols = `minmax(0, ${value})`
       }
     }
 
     // auto-rows-(10px,auto) => { grid-auto-rows: monmax(10px,auto); }
     if (!autoCols) {
-      if (value.match(/^\(.+\)$/g)) {
+      if (/^\(.+\)$/.test(value)) {
         autoCols = `minmax${value}`
       }
     }
@@ -55,14 +55,14 @@ export const gridAuto = {
 
     // auto-rows-2fr => { grid-auto-rows: monmax(0, 2fr); }
     if (!autoRows) {
-      if (value.match(/^\d+(fr|px|%)$/g)) {
+      if (/^\d+(fr|px|%)$/.test(value)) {
         autoRows = `minmax(0, ${value})`
       }
     }
 
     // auto-rows-(10px,auto) => { grid-auto-rows: monmax(10px,auto); }
     if (!autoRows) {
-      if (value.match(/^\(.+\)$/g)) {
+      if (/^\(.+\)$/.test(value)) {
         autoRows = `minmax${value.substring(1, value.length - 1)}`
       }
     }

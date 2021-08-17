@@ -35,7 +35,7 @@ export function getSpacing(value: string, theme: Theme): string {
   let uValue = sign ? value.substring(1) : value
   let space =
     theme.spacing[uValue] ||
-    (uValue.match(/^\d+(\.\d+)?(px|%|em|rem|wv|wh)$/g) ? uValue : '')
+    (/^\d+(\.\d+)?(px|%|em|rem|wv|wh)$/.test(uValue) ? uValue : '')
   return space ? sign + space : ''
 }
 

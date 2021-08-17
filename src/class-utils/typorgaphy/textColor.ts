@@ -25,7 +25,7 @@ export const textColor: ClassUtility = {
   },
   'text-opacity'(value: string, theme: Theme) {
     if (!value) return
-    if (value.match(/^\d+$/)) {
+    if (/^\d+$/.test(value)) {
       let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
       let opacity = parseInt(value, 10) / 100
       return {

@@ -1,26 +1,26 @@
 export const alignItems = {
   items(value: string) {
     if (!value) return
-    if (value.match(/^(start|end)$/g)) {
+    if (/^(start|end)$/.test(value)) {
       return {
         'align-items': 'flex-' + value,
       }
     }
 
-    if (value.match(/^(center|baseline|stretch)$/g)) return
+    if (/^(center|baseline|stretch)$/.test(value)) return
     return {
       'align-items': value,
     }
   },
   self(value: string) {
     if (!value) return
-    if (value.match(/^(start|end)$/g)) {
+    if (/^(start|end)$/.test(value)) {
       return {
         'align-self': 'flex-' + value,
       }
     }
 
-    if (value.match(/^(auto|center|stretch)$/g)) return
+    if (/^(auto|center|stretch)$/.test(value)) return
     return {
       'align-self': value,
     }

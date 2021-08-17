@@ -13,14 +13,10 @@ export const order = {
       order = '0'
     }
 
-    if (!order.match(/^\d+$/)) {
-      order = ''
-    }
+    if (!/^-?[1-9](\d+)?$/.test(order)) return
 
-    if (order) {
-      return {
-        order,
-      }
+    return {
+      order,
     }
   },
 }

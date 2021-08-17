@@ -10,7 +10,7 @@ export const gap = {
       }
     }
 
-    if (value.match(/^\d+px$/)) {
+    if (/^\d+px$/.test(value)) {
       return {
         gap: value,
       }
@@ -25,7 +25,7 @@ export const gap = {
       }
     }
 
-    if (value.match(/^\d+px$/)) {
+    if (/^\d+px$/.test(value)) {
       return {
         'column-gap': value,
       }
@@ -40,7 +40,7 @@ export const gap = {
       }
     }
 
-    if (value.match(/^\d+px$/)) {
+    if (/^\d+px$/.test(value)) {
       return {
         'row-gap': value,
       }

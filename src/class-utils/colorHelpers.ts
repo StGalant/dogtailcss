@@ -3,12 +3,12 @@ import { Theme } from '../theme/index.js'
 export function hex2rgba(hex: string, opacity: string | number): string | void {
   let r, g, b
 
-  if (hex.match(/^#([a-f0-9]{3})$/i)) {
+  if (hex.length === 4) {
     r = parseInt(hex.substring(1, 2), 16)
     g = parseInt(hex.substring(2, 3), 16)
     b = parseInt(hex.substring(3, 4), 16)
   }
-  if (hex.match(/^#([a-f0-9]{6})$/i)) {
+  if (hex.length === 7) {
     r = parseInt(hex.substring(1, 3), 16)
     g = parseInt(hex.substring(3, 5), 16)
     b = parseInt(hex.substring(5, 7), 16)
