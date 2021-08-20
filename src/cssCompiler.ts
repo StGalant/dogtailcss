@@ -27,7 +27,7 @@ export function createCssCompiler(
   options = {}
 ): CssCompiler {
   let { tabSize, screenAutoLevel } = { ...defaultFormatOptions, ...options }
-  return function (className): CssCompilerResult | CssCompilerResult[] {
+  return function (className): CssCompilerResult {
     //compilePureClassName
     function compilePureClassName(className: string) {
       let dashIndex = className.length
@@ -59,9 +59,26 @@ export function createCssCompiler(
     }
     let screen = 'normal'
     let scrMinWidth = 0
-    let pseudo: string[] = []
+    // let pseudo: string[] = []
     let parts = className.split(':')
-    let pureClassName: string = ''
+    // let pureClassName: string = ''
+
+    interface Selector {
+      place: 'before' | 'after'
+      text: string
+    }
+
+    interface CompiledRule {
+      rules: { [key: string]: string }
+      selectors: Selector[]
+      pseudos: string[]
+    }
+
+    let compiledRule: CompiledRule = {
+      rules: {},
+      selectors: [],
+      pseudos: [],
+    }
 
     parts.forEach((part) => {
       let scr = theme.screens.find(({ name }) => name === part)
@@ -71,39 +88,64 @@ export function createCssCompiler(
         return
       }
       if (theme.pseudoClasses[part]) {
-        pseudo.push(theme.pseudoClasses[part])
+        // pseudo.push(theme.pseudoClasses[part])
+        compiledRule.pseudos.push(theme.pseudoClasses[part])
         return
       }
-      pureClassName = part
+
+      let rule = compilePureClassName(part)
+      if (rule) {
+        if (rule.selector) {
+          compiledRule.selectors.push(rule.selector)
+        }
+
+        if (rule.pseudo) {
+          compiledRule.pseudos.push(rule.pseudo)
+        }
+        compiledRule.rules = { ...compiledRule.rules, ...rule }
+      }
     })
 
-    let rule = compilePureClassName(pureClassName)
-    if (!rule) {
+    let rule = compiledRule.rules
+
+    if (!Object.keys(rule).length) {
       return { screen: 'normal', rule: '' }
     }
     let escClassName = escapedClassName(className)
     if (rule instanceof Array) {
-      let rules = []
-      for (let r of rule) {
-        rules.push({
-          screen: r.screen,
-          rule: objectToCss(
-            `${escClassName}${pseudo.join('')}`,
-            r.rule,
-            screenAutoLevel && r.screen === 'normal' ? 0 : 1,
-            {
-              tabSize,
-            }
-          ),
-        })
-      }
-      return rules
+      // let rules = []
+      // for (let r of rule) {
+      //   rules.push({
+      //     screen: r.screen,
+      //     rule: objectToCss(
+      //       `${escClassName}${pseudo.join('')}`,
+      //       r.rule,
+      //       screenAutoLevel && r.screen === 'normal' ? 0 : 1,
+      //       {
+      //         tabSize,
+      //       }
+      //     ),
+      //   })
+      // }
+      // return rules
     } else {
       if (rule && escClassName) {
+        let selectorsBefore = ''
+        let selsectorsAfter = ''
+
+        for (let sel of compiledRule.selectors) {
+          if (sel.place === 'before') {
+            selectorsBefore += sel.text + ' '
+          } else {
+            selsectorsAfter += ' ' + sel.text
+          }
+        }
         return {
           screen,
           rule: objectToCss(
-            `${escClassName}${pseudo.join('')}`,
+            `${selectorsBefore}${escClassName}${compiledRule.pseudos.join(
+              ''
+            )}${selsectorsAfter}`,
             rule,
             screenAutoLevel && screen === 'normal' ? 0 : 1,
             {

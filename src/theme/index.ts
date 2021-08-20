@@ -5,9 +5,13 @@ import { screens, ThemeScreens } from './screens.js'
 import { spacing, ThemeSpacing } from './spacing.js'
 import {
   fontSize,
-  ThemeFontSize,
   fontWeight,
+  letterSpacing,
+  lineHeight,
+  ThemeFontSize,
   ThemeFontWeight,
+  ThemeLetterSpacing,
+  ThemeLineHeight,
 } from './typography.js'
 
 export interface Theme {
@@ -18,6 +22,8 @@ export interface Theme {
   pseudoClasses: ThemePseudoclassess
   fontSize: ThemeFontSize
   fontWeight: ThemeFontWeight
+  letterSpacing: ThemeLetterSpacing
+  lineHeight: ThemeLineHeight
   varPrefix: string
   varColorPrefix: string
   useVarOpacity: boolean
@@ -31,6 +37,8 @@ export let theme: Theme = {
   pseudoClasses,
   fontSize,
   fontWeight,
+  letterSpacing,
+  lineHeight,
   varPrefix: 't',
   varColorPrefix: 't-color',
   useVarOpacity: false,

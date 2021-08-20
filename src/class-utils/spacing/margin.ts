@@ -1,5 +1,5 @@
 import { Theme } from '../../theme/index.js'
-import { getSpacing } from '../index.js'
+import { getSpacing } from '../spacingHelpers.js'
 
 export const margin = {
   m(value: string, theme: Theme) {

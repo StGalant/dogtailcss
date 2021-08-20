@@ -14,4 +14,7 @@ export const pseudoClasses = {
   'focus-visible': ':focus-visible',
   fw: ':focus-within',
   'focus-within': ':focus-within',
+  ch: ':checked',
+  checked: ':checked',
+  disabled: ':disabled',
 }

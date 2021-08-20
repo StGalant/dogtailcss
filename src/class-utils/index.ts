@@ -4,21 +4,21 @@ import layout from './layout/index.js'
 import flexAndGrid from './flex-and-grid/index.js'
 import spacing from './spacing/index.js'
 import sizing from './sizing/index.js'
+import selectors from './selectors/index.js'
+
+interface Selector {
+  place: 'before' | 'after'
+  text: string
+}
 
 export interface ClassUtilResult {
+  selector?: Selector
+  pseudo?: string
   [key: string]: any
 }
 
-export interface ClassUtilResultElement {
-  screen: string
-  rule: ClassUtilResult
-}
-
 export interface ClassUtility {
-  [key: string]: (
-    value: string,
-    theme: Theme
-  ) => ClassUtilResult | ClassUtilResultElement[] | void
+  [key: string]: (value: string, theme: Theme) => ClassUtilResult | void
 }
 
 export type ClassUtils = Map<String, ClassUtility[]>
@@ -28,16 +28,8 @@ const defaultUtils: ClassUtility[] = [
   ...spacing,
   ...sizing,
   ...typorgaphy,
+  ...selectors,
 ]
-
-export function getSpacing(value: string, theme: Theme): string {
-  let sign = value.substring(0, 1) === '-' ? '-' : ''
-  let uValue = sign ? value.substring(1) : value
-  let space =
-    theme.spacing[uValue] ||
-    (/^\d+(\.\d+)?(px|%|em|rem|wv|wh)$/.test(uValue) ? uValue : '')
-  return space ? sign + space : ''
-}
 
 export function createClassUtils(addons: ClassUtility[] = []): ClassUtils {
   let utils: ClassUtils = new Map<String, ClassUtility[]>()
