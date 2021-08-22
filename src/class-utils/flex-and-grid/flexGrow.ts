@@ -4,7 +4,7 @@ export const flexGrow: ClassUtility = {
   'flex-grow'(value: string) {
     if (!value) {
       return {
-        'flex-grow': 1,
+        'flex-grow': '1',
       }
     }
 
@@ -17,7 +17,7 @@ export const flexGrow: ClassUtility = {
   'flex-shrink'(value: string) {
     if (!value) {
       return {
-        'flex-shrink': 1,
+        'flex-shrink': '1',
       }
     }
 

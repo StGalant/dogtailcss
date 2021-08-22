@@ -1,4 +1,4 @@
-import { padding } from './padding'
-import { margin } from './margin'
+import { padding } from './padding.js'
+import { margin } from './margin.js'
 
 export default [padding, margin]

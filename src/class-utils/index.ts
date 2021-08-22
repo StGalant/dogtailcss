@@ -11,14 +11,21 @@ interface Selector {
   text: string
 }
 
-export interface ClassUtilResult {
+interface HiddenValues {
   selector?: Selector
   pseudo?: string
-  [key: string]: any
+  screen?: string
+}
+
+export type ClassUtilResult = HiddenValues & {
+  [key: string]: string
 }
 
 export interface ClassUtility {
-  [key: string]: (value: string, theme: Theme) => ClassUtilResult | void
+  [key: string]: (
+    value: string,
+    theme: Theme
+  ) => ClassUtilResult | ClassUtilResult[] | void
 }
 
 export type ClassUtils = Map<String, ClassUtility[]>

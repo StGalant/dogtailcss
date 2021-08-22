@@ -1,4 +1,4 @@
-import { objectToCss, CssFormatOptions } from '../objectToCss'
+import { objectToCss, CssFormatOptions } from '../src/objectToCss.js'
 
 const options: CssFormatOptions = {
   tabSize: 4,

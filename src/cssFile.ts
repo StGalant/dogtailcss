@@ -147,7 +147,7 @@ export function createCssFile(
       try {
         fs.writeFileSync(file, this.render(), { encoding: 'utf-8' })
       } catch (err) {
-        //TODO handle error
+        //   //TODO handle error
         console.error(err + '\nFailed to write file "' + file + '"')
       }
 

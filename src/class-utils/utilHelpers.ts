@@ -14,3 +14,7 @@ export function withSelector(obj: any, value: any): any {
     typeof value === 'string' ? { place: 'after', text: value } : value
   return withHidden(obj, 'selector', selector)
 }
+
+export function withScreen(obj: any, value: any): any {
+  return withHidden(obj, 'screen', value)
+}

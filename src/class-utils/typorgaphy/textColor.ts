@@ -29,7 +29,7 @@ export const textColor: ClassUtility = {
       let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
       let opacity = parseInt(value, 10) / 100
       return {
-        [`${prefix}-text-opacity`]: opacity,
+        [`${prefix}-text-opacity`]: `${opacity}`,
       }
     }
   },

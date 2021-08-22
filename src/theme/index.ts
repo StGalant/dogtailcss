@@ -1,5 +1,5 @@
 import { colors, ThemeColors } from './colors.js'
-import { cssColors, ThemeCssColors } from './cssColors.js'
+import { cssColors } from './cssColors.js'
 import { pseudoClasses, ThemePseudoclassess } from './pseudoClasses.js'
 import { screens, ThemeScreens } from './screens.js'
 import { spacing, ThemeSpacing } from './spacing.js'
@@ -16,7 +16,6 @@ import {
 
 export interface Theme {
   colors: ThemeColors
-  cssColors: ThemeCssColors
   screens: ThemeScreens
   spacing: ThemeSpacing
   pseudoClasses: ThemePseudoclassess
@@ -30,8 +29,7 @@ export interface Theme {
 }
 
 export let theme: Theme = {
-  colors,
-  cssColors,
+  colors: { ...cssColors, ...colors },
   screens,
   spacing,
   pseudoClasses,

@@ -1,4 +1,4 @@
-import { withSelector } from '../utilHelpers'
+import { withSelector } from '../utilHelpers.js'
 
 export const notLastChild = {
   nlch(value: string): any {

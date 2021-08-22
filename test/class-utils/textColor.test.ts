@@ -61,3 +61,13 @@ test('compile text-(10,200,155,.5)', () => {
     `.text-\\(10\\,200\\,155\\,\\.5\\) {\n${t}color: rgba(10,200,155,.5);\n}\n`
   )
 })
+
+test('compile text-#00FAFF', () => {
+  let { rule } = compile('text-#00FAFF') as CssCompilerResult
+  expect(rule).toBe(`.text-\\#00FAFF {\n${t}color: #00FAFF;\n}\n`)
+})
+
+test('compile text-maroon', () => {
+  let { rule } = compile('text-maroon') as CssCompilerResult
+  expect(rule).toBe(`.text-maroon {\n${t}color: #800000;\n}\n`)
+})
