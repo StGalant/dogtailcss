@@ -6,15 +6,19 @@ import spacing from './spacing/index.js'
 import sizing from './sizing/index.js'
 import selectors from './selectors/index.js'
 
+export const SCREEN = Symbol('SCREEN')
+export const SELECTOR = Symbol('SELECTOR')
+export const PSEUDO = Symbol('PSEUDO')
+
 interface Selector {
   place: 'before' | 'after'
   text: string
 }
 
 interface HiddenValues {
-  selector?: Selector
-  pseudo?: string
-  screen?: string
+  [SCREEN]?: string
+  [SELECTOR]?: Selector
+  [PSEUDO]?: string
 }
 
 export type ClassUtilResult = HiddenValues & {

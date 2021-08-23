@@ -1,9 +1,14 @@
-import { withSelector } from '../utilHelpers.js'
+import { SELECTOR } from '../index.js'
 
 export const notLastChild = {
   nlch(value: string): any {
     if (value) return
-    return withSelector({}, '> * + *')
+    return {
+      [SELECTOR]: {
+        place: 'after',
+        text: '> * + *',
+      },
+    }
   },
   divide(value: string): any {
     return notLastChild.nlch(value)

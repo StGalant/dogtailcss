@@ -4,6 +4,9 @@ import {
   ClassUtility,
   ClassUtils,
   ClassUtilResult,
+  SELECTOR,
+  PSEUDO,
+  SCREEN,
 } from './class-utils/index.js'
 
 export interface FormatOptions {
@@ -138,12 +141,24 @@ export function createCssCompiler(
       let rule = compilePureClassName(part)
       if (rule) {
         if (!(rule instanceof Array)) {
-          if (rule.selector) {
-            compiledRule.selectors.push(rule.selector)
+          if (rule[SELECTOR]) {
+            compiledRule.selectors.push(rule[SELECTOR] as Selector)
           }
 
-          if (rule.pseudo) {
-            compiledRule.pseudos.push(rule.pseudo)
+          if (rule[PSEUDO]) {
+            compiledRule.pseudos.push(rule[PSEUDO] as string)
+          }
+
+          if (rule[SCREEN]) {
+            let scr = theme.screens.find(
+              ({ name }) => name === (rule as ClassUtilResult)[SCREEN]
+            )
+            if (scr) {
+              if (screen == 'normal' || scr.minWidth < scrMinWidth)
+                screen = scr.name
+              scrMinWidth = scr.minWidth
+              return
+            }
           }
         }
 
@@ -175,6 +190,7 @@ export function createCssCompiler(
     }
 
     let escClassName = escapedClassName(className)
+
     if (compiledRule.rule instanceof Array) {
       let rules = []
       for (let r of compiledRule.rule) {
@@ -184,15 +200,15 @@ export function createCssCompiler(
         }
 
         let selectors = compiledRule.selectors
-        if (r.selector) {
-          selectors = [...selectors, r.selector]
+        if (r[SELECTOR]) {
+          selectors = [...selectors, r[SELECTOR] as Selector]
         }
 
         rules.push(
           assemblyClass(
             escClassName,
             r,
-            r.screen ? r.screen : screen,
+            r[SCREEN] ? (r[SCREEN] as string) : screen,
             pseudos,
             selectors,
             screenAutoLevel,
