@@ -1,24 +1,13 @@
 import { Theme } from '../../theme/index.js'
 import { ClassUtility } from '../index.js'
-import { hexColor, rgbColor, themeColor, varColor } from '../colorHelpers.js'
+import { getColor } from '../colorHelpers.js'
 
 export const textColor: ClassUtility = {
   text(value: string, theme: Theme): any {
     if (!value) return
-    let color =
-      themeColor(value, theme, 'text') ||
-      hexColor(value) ||
-      rgbColor(value) ||
-      varColor(value, theme)
+    let color = getColor(value, theme, 'text')
     if (!color) return
 
-    // tilewind-like opacity
-    if (typeof color === 'object') {
-      return {
-        [color.opacity]: '1',
-        color: color.color,
-      }
-    }
     return {
       color,
     }

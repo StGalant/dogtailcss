@@ -13,7 +13,16 @@ export function hex2rgba(hex: string, opacity: string | number): string | void {
     g = parseInt(hex.substring(3, 5), 16)
     b = parseInt(hex.substring(5, 7), 16)
   }
-  if (!r || !g || !b) return
+  //if undefined or NaN return empty value
+  if (
+    r == undefined ||
+    g == undefined ||
+    b == undefined ||
+    r !== r ||
+    g !== g ||
+    b !== b
+  )
+    return
 
   if (typeof opacity === 'number') opacity = opacity.toFixed(4)
 
@@ -58,7 +67,7 @@ export function varColor(value: string, theme: Theme) {
   }
 }
 
-export function themeColor(value: string, theme: Theme, type?: string) {
+export function themeColor(value: string, theme: Theme, varName?: string) {
   if (/^\w+(-\w+)?$/.test(value)) {
     let colorParts = value.split('-')
 
@@ -78,24 +87,21 @@ export function themeColor(value: string, theme: Theme, type?: string) {
     // tailwind-like text opacity solution
     if (theme.useVarOpacity) {
       let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
-      type ||= 'text'
+      varName ||= 'text'
+      let opacity = `var(${prefix}-${varName}-opacity, 1)`
       if (isHexColor(color)) {
-        color = hex2rgba(color, `var(${prefix}-${type}-opacity)`)
+        color = hex2rgba(color, opacity)
       } else if (isRgbColor(color)) {
         color =
           'rgba' +
           color
             .substring(0, 3)
-            .replace(/\)$/, ` var(${prefix}-${type}-opacity)`)
+            .replace(/\)$/, ` var(${prefix}-${varName}-opacity)`)
       } else if (isRgbaColor(color)) {
-        color = color.replace(/,[^,]+\)$/, ` var(${prefix}-${type}-opacity)`)
+        color = color.replace(/,[^,]+\)$/, ` ${opacity}`)
       }
-      if (!color) return
 
-      return {
-        opacity: `${prefix}-${type}-opacity`,
-        color,
-      }
+      return color
     } else {
       return color
     }
@@ -125,11 +131,20 @@ export function themeColor(value: string, theme: Theme, type?: string) {
     if (isHexColor(color)) {
       color = hex2rgba(color, `${opacity}`)
     } else if (isRgbColor(color)) {
-      color = 'rgba' + color.substring(0, 3).replace(/\)$/, ` ${opacity})`)
+      color = 'rgba' + color.substring(3, color.length - 1) + `, ${opacity})`
     } else if (isRgbaColor(color)) {
-      color = color.replace(/,[^,]+\)$/, ` ${opacity})`)
+      color = color.replace(/,[^,]+\)$/, `, ${opacity})`)
     }
 
     return color
   }
+}
+
+export function getColor(value: string, theme: Theme, varName?: string) {
+  return (
+    themeColor(value, theme, varName) ||
+    hexColor(value) ||
+    rgbColor(value) ||
+    varColor(value, theme)
+  )
 }

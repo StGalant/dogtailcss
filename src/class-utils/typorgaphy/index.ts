@@ -5,6 +5,9 @@ import { fontSmoothing } from './fontSmoothing.js'
 import { fontStyle } from './fontStyle.js'
 import { fontWeight } from './fontWeight.js'
 import { list } from './list.js'
+import { letterSpacing } from './letterSpacing.js'
+import { lineHeight } from './lineHeight.js'
+import { placeholderColor } from './placeholderColor.js'
 
 export default [
   fontFamily,
@@ -14,4 +17,7 @@ export default [
   fontStyle,
   fontWeight,
   list,
+  letterSpacing,
+  lineHeight,
+  placeholderColor,
 ]
