@@ -4,9 +4,9 @@ export function hex2rgba(hex: string, opacity: string | number): string | void {
   let r, g, b
 
   if (hex.length === 4) {
-    r = parseInt(hex.substring(1, 2), 16)
-    g = parseInt(hex.substring(2, 3), 16)
-    b = parseInt(hex.substring(3, 4), 16)
+    r = parseInt(hex.substring(1, 2).repeat(2), 16)
+    g = parseInt(hex.substring(2, 3).repeat(2), 16)
+    b = parseInt(hex.substring(3, 4).repeat(2), 16)
   }
   if (hex.length === 7) {
     r = parseInt(hex.substring(1, 3), 16)
