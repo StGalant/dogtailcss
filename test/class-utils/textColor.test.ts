@@ -1,18 +1,10 @@
-import { createCssCompiler, CssCompilerResult } from '../../src/cssCompiler'
-import { createClassUtils } from '../../src/class-utils'
-import { theme } from '../../src/theme'
+import { CssCompilerResult } from '../../src/cssCompiler'
+import setup from './_setup'
 
-let tabSize = 4
-let utils = createClassUtils()
-let compile = createCssCompiler(utils, theme, { tabSize })
-let compileOpacity = createCssCompiler(
-  utils,
-  { ...theme, ...{ useVarOpacity: true } },
-  { tabSize }
-)
-let t = ' '.repeat(tabSize)
+let { compile, compileOpacity, t } = setup()
 
 test('compile text-indigo-600', () => {
+  console.log(this)
   let { rule } = compile('text-indigo-600') as CssCompilerResult
   expect(rule).toBe(`.text-indigo-600 {\n${t}color: #4f46e5;\n}\n`)
 })
