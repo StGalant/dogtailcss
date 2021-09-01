@@ -4,7 +4,6 @@ import setup from './_setup'
 let { compile, compileOpacity, t } = setup()
 
 test('compile text-indigo-600', () => {
-  console.log(this)
   let { rule } = compile('text-indigo-600') as CssCompilerResult
   expect(rule).toBe(`.text-indigo-600 {\n${t}color: #4f46e5;\n}\n`)
 })
