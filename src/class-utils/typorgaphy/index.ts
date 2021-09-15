@@ -14,6 +14,8 @@ import { textDecoration } from './textDecoration.js'
 import { textTransform } from './textTransform.js'
 import { textOverflow } from './textOverflow.js'
 import { verticalAlign } from './verticalAlign.js'
+import { whitespace } from './whitespace.js'
+import { wordBreak } from './wordBreak.js'
 
 export default [
   fontFamily,
@@ -32,4 +34,6 @@ export default [
   textTransform,
   textOverflow,
   verticalAlign,
+  whitespace,
+  wordBreak,
 ]
