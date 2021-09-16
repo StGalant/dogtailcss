@@ -5,6 +5,7 @@ import flexAndGrid from './flex-and-grid/index.js'
 import spacing from './spacing/index.js'
 import sizing from './sizing/index.js'
 import selectors from './selectors/index.js'
+import backgrounds from './backgrounds/index.js'
 
 export const SCREEN = Symbol('SCREEN')
 export const SELECTOR = Symbol('SELECTOR')
@@ -40,6 +41,7 @@ const defaultUtils: ClassUtility[] = [
   ...sizing,
   ...typorgaphy,
   ...selectors,
+  ...backgrounds,
 ]
 
 export function createClassUtils(addons: ClassUtility[] = []): ClassUtils {
