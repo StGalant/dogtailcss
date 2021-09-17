@@ -108,3 +108,93 @@ test('compile bg-maroon', () => {
   let { rule } = compile('bg-maroon') as CssCompilerResult
   expect(rule).toBe(`.bg-maroon {\n${t}background-color: #800000;\n}\n`)
 })
+
+/* background origin */
+
+test('compile bg-origin-border', () => {
+  let { rule } = compile('bg-origin-border') as CssCompilerResult
+  expect(rule).toBe(
+    `.bg-origin-border {\n${t}background-origin: border-box;\n}\n`
+  )
+})
+
+test('compile bg-origin-padding', () => {
+  let { rule } = compile('bg-origin-padding') as CssCompilerResult
+  expect(rule).toBe(
+    `.bg-origin-padding {\n${t}background-origin: padding-box;\n}\n`
+  )
+})
+
+test('compile bg-origin-content', () => {
+  let { rule } = compile('bg-origin-content') as CssCompilerResult
+  expect(rule).toBe(
+    `.bg-origin-content {\n${t}background-origin: content-box;\n}\n`
+  )
+})
+
+/* background position */
+test('compile bg-bottom', () => {
+  let { rule } = compile('bg-bottom') as CssCompilerResult
+  expect(rule).toBe(`.bg-bottom {\n${t}background-position: bottom;\n}\n`)
+})
+
+test('compile bg-center', () => {
+  let { rule } = compile('bg-center') as CssCompilerResult
+  expect(rule).toBe(`.bg-center {\n${t}background-position: center;\n}\n`)
+})
+
+test('compile bg-left', () => {
+  let { rule } = compile('bg-left') as CssCompilerResult
+  expect(rule).toBe(`.bg-left {\n${t}background-position: left;\n}\n`)
+})
+
+test('compile bg-right', () => {
+  let { rule } = compile('bg-right') as CssCompilerResult
+  expect(rule).toBe(`.bg-right {\n${t}background-position: right;\n}\n`)
+})
+
+test('compile bg-top', () => {
+  let { rule } = compile('bg-top') as CssCompilerResult
+  expect(rule).toBe(`.bg-top {\n${t}background-position: top;\n}\n`)
+})
+
+test('compile bg-left-bottom', () => {
+  let { rule } = compile('bg-left-bottom') as CssCompilerResult
+  expect(rule).toBe(
+    `.bg-left-bottom {\n${t}background-position: left bottom;\n}\n`
+  )
+})
+
+test('compile bg-left-top', () => {
+  let { rule } = compile('bg-left-top') as CssCompilerResult
+  expect(rule).toBe(`.bg-left-top {\n${t}background-position: left top;\n}\n`)
+})
+
+test('compile bg-right-bottom', () => {
+  let { rule } = compile('bg-right-bottom') as CssCompilerResult
+  expect(rule).toBe(
+    `.bg-right-bottom {\n${t}background-position: right bottom;\n}\n`
+  )
+})
+
+test('compile bg-right-top', () => {
+  let { rule } = compile('bg-right-top') as CssCompilerResult
+  expect(rule).toBe(`.bg-right-top {\n${t}background-position: right top;\n}\n`)
+})
+
+/* background size */
+
+test('compile bg-auto', () => {
+  let { rule } = compile('bg-auto') as CssCompilerResult
+  expect(rule).toBe(`.bg-auto {\n${t}background-size: auto;\n}\n`)
+})
+
+test('compile bg-cover', () => {
+  let { rule } = compile('bg-cover') as CssCompilerResult
+  expect(rule).toBe(`.bg-cover {\n${t}background-size: cover;\n}\n`)
+})
+
+test('compile bg-contain', () => {
+  let { rule } = compile('bg-contain') as CssCompilerResult
+  expect(rule).toBe(`.bg-contain {\n${t}background-size: contain;\n}\n`)
+})
