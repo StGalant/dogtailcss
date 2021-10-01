@@ -128,16 +128,28 @@ export function themeColor(value: string, theme: Theme, varName?: string) {
       opacity = opacity / 100.0
     }
 
-    if (isHexColor(color)) {
-      color = hex2rgba(color, `${opacity}`)
-    } else if (isRgbColor(color)) {
-      color = 'rgba' + color.substring(3, color.length - 1) + `, ${opacity})`
-    } else if (isRgbaColor(color)) {
-      color = color.replace(/,[^,]+\)$/, `, ${opacity})`)
-    }
-
-    return color
+    // if (isHexColor(color)) {
+    //   color = hex2rgba(color, `${opacity}`)
+    // } else if (isRgbColor(color)) {
+    //   color = 'rgba' + color.substring(3, color.length - 1) + `, ${opacity})`
+    // } else if (isRgbaColor(color)) {
+    //   color = color.replace(/,[^,]+\)$/, `, ${opacity})`)
+    // }
+    return toRGBA(color, opacity)
   }
+}
+
+export function toRGBA(color: string, opacity: string | number): string {
+  let c = ''
+  if (isHexColor(color)) {
+    c = hex2rgba(color, `${opacity}`) || ''
+  } else if (isRgbColor(color)) {
+    c = 'rgba' + color.substring(3, color.length - 1) + `, ${opacity})`
+  } else if (isRgbaColor(color)) {
+    c = color.replace(/,[^,]+\)$/, `, ${opacity})`)
+  }
+
+  return c
 }
 
 export function getColor(value: string, theme: Theme, varName?: string) {

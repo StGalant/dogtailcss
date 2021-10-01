@@ -1,4 +1,16 @@
 import { Theme } from '../../theme/index.js'
+import { getColor, toRGBA } from '../colorHelpers.js'
+
+let dir = {
+  t: 'top',
+  b: 'bottom',
+  r: 'right',
+  l: 'left',
+  tr: 'top right',
+  tl: 'top left',
+  br: 'bottom right',
+  bl: 'bottom left',
+} as { [key: string]: string }
 
 export const bgGradient = {
   'bg-none'(value: string) {
@@ -10,28 +22,57 @@ export const bgGradient = {
 
   'bg-gradient-to'(value: string, theme: Theme) {
     if (!value) return
-    let dir
-    if (value === 't') dir = 'top'
-    if (value === 'b') dir = 'bottom'
-    if (value === 'r') dir = 'right'
-    if (value === 'l') dir = 'left'
-    if (value === 'tr') dir = 'top right'
-    if (value === 'tl') dir = 'top left'
-    if (value === 'br') dir = 'bottom right'
-    if (value === 'bl') dir = 'bottom left'
 
-    if (!dir) return
+    let d = dir[value]
+    if (!d) return
 
     let prefix = '--' + (theme.varPrefix || '')
     prefix = prefix == '--' ? '-' : prefix
     return {
-      'background-image': `linear-gradient(to ${dir}, var(${prefix}-gradient-stops))`,
+      'background-image': `linear-gradient(to ${d}, var(${prefix}-gradient-stops))`,
     }
   },
 
-  from(value: string) {},
+  from(value: string, theme: Theme) {
+    if (!value) return
+    let color = getColor(value, theme)
+    if (!color) return
 
-  via(value: string) {},
+    let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
 
-  to(value: string) {},
+    return {
+      [`${prefix}-gradient-from`]: color,
+      [`${prefix}-gradient-stops`]: `var(${prefix}-gradient-from), var(${prefix}-gradient-to, ${toRGBA(
+        color,
+        0
+      )})`,
+    }
+  },
+
+  to(value: string, theme: Theme) {
+    if (!value) return
+    let color = getColor(value, theme)
+    if (!color) return
+
+    let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
+
+    return {
+      [`${prefix}-gradient-to`]: color,
+    }
+  },
+
+  via(value: string, theme: Theme) {
+    if (!value) return
+    let color = getColor(value, theme)
+    if (!color) return
+
+    let prefix = theme.varPrefix ? `--${theme.varPrefix}` : '-'
+
+    return {
+      [`${prefix}-gradient-stops`]: `var(${prefix}-gradient-from), ${color}, var(${prefix}-gradient-to, ${toRGBA(
+        color,
+        0
+      )})`,
+    }
+  },
 }

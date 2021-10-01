@@ -6,6 +6,7 @@ import spacing from './spacing/index.js'
 import sizing from './sizing/index.js'
 import selectors from './selectors/index.js'
 import backgrounds from './backgrounds/index.js'
+import borders from './borders/index.js'
 
 export const SCREEN = Symbol('SCREEN')
 export const SELECTOR = Symbol('SELECTOR')
@@ -42,6 +43,7 @@ const defaultUtils: ClassUtility[] = [
   ...typorgaphy,
   ...selectors,
   ...backgrounds,
+  ...borders,
 ]
 
 export function createClassUtils(addons: ClassUtility[] = []): ClassUtils {

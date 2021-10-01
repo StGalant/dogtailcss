@@ -198,3 +198,32 @@ test('compile bg-contain', () => {
   let { rule } = compile('bg-contain') as CssCompilerResult
   expect(rule).toBe(`.bg-contain {\n${t}background-size: contain;\n}\n`)
 })
+
+/* Gradient */
+test('compile bg-gradient-to-bl', () => {
+  let { rule } = compile('bg-gradient-to-bl') as CssCompilerResult
+  expect(rule).toBe(
+    `.bg-gradient-to-bl {\n${t}background-image: linear-gradient(to bottom left, var(--t-gradient-stops));\n}\n`
+  )
+})
+
+test('compile bg-gradient-to-t', () => {
+  let { rule } = compile('bg-gradient-to-t') as CssCompilerResult
+  expect(rule).toBe(
+    `.bg-gradient-to-t {\n${t}background-image: linear-gradient(to top, var(--t-gradient-stops));\n}\n`
+  )
+})
+
+test('compile from-blue-700', () => {
+  let { rule } = compile('from-blue-700') as CssCompilerResult
+  expect(rule).toBe(
+    `.from-blue-700 {\n${t}--t-gradient-from: #1d4ed8;\n${t}--t-gradient-stops: var(--t-gradient-from), var(--t-gradient-to, rgba(29, 78, 216, 0));\n}\n`
+  )
+})
+
+test('compile via-gray-500', () => {
+  let { rule } = compile('via-gray-500') as CssCompilerResult
+  expect(rule).toBe(
+    `.via-gray-500 {\n${t}--t-gradient-stops: var(--t-gradient-from), #71717a, var(--t-gradient-to, rgba(113, 113, 122, 0));\n}\n`
+  )
+})
