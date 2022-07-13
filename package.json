@@ -2,9 +2,13 @@
   "name": "dogtailcss",
   "version": "1.0.0",
   "description": "CSS framework with dynamically generated utility classess",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": "dist/cli.js",
+  "types": "dist/types/index.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,22 @@
   "bugs": {
     "url": "https://bitbucket.org/st_galant/dogtailcss/issues"
   },
-  "homepage": "https://bitbucket.org/st_galant/dogtailcss#readme"
+  "homepage": "https://bitbucket.org/st_galant/dogtailcss#readme",
+  "dependencies": {
+    "chokidar": "^3.5.2",
+    "fast-glob": "^3.2.7",
+    "micromatch": "^4.0.4",
+    "modern-normalize": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/micromatch": "^4.0.2",
+    "@types/mock-fs": "^4.13.1",
+    "@types/node": "^16.4.10",
+    "jest": "^27.0.6",
+    "mock-fs": "^5.0.0",
+    "ts-jest": "^27.0.4",
+    "ts-jest-resolver": "^1.1.0",
+    "typescript": "^4.3.5"
+  }
 }
